@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # # Claude Code container with jq, git, and other dev tools
+  # claude:
+  #   build:
+  #     context: ./claude-docker
+  #     dockerfile: Dockerfile
+  #   container_name: vibestack-claude
+  #   volumes:
+  #     - ./workdir:/workdir/share
+  #     - claude-home:/root
+  #   stdin_open: true
+  #   tty: true
+  #   environment:
+  #     - TERM=xterm-256color
+  #   networks:
+  #     - vibestack-net
+  #   restart: unless-stopped
+
+  # # NoVNC container for remote desktop access
+  # novnc:
+  #   build:
+  #     context: ./novnc-docker
+  #     dockerfile: Dockerfile
+  #   container_name: vibestack-novnc
+  #   ports:
+  #     - "6080:6080"
+  #   environment:
+  #     - RESOLUTION=1280x720
+  #     - VNC_PORT=5900
+  #     - NOVNC_PORT=6080
+  #     - DISPLAY=:0
+  #   networks:
+  #     - vibestack-net
+  #   restart: unless-stopped
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:6080"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+
+  # Combined Vibestack container with Claude + NoVNC capabilities
+  vibestack:
+    build:
+      context: ./vibestack-docker
+      dockerfile: Dockerfile
+    container_name: vibestack-main
+    volumes:
+      - ./workdir:/workdir
+      - vibestack-home:/root
+    ports:
+      - "6080:6080"
+    stdin_open: true
+    tty: true
+    environment:
+      - TERM=xterm-256color
+      - RESOLUTION=1280x720
+      - VNC_PORT=5900
+      - NOVNC_PORT=6080
+      - DISPLAY=:0
+    networks:
+      - vibestack-net
+    restart: unless-stopped
+
+networks:
+  vibestack-net:
+    driver: bridge
+
+volumes:
+  # claude-home:
+  #   driver: local
+  vibestack-home:
+    driver: local

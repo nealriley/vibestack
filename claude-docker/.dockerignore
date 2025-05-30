@@ -1,0 +1,11 @@
+# This .dockerignore file specifies files and directories to ignore when building the Docker image.
+
+node_modules
+npm-debug.log
+Dockerfile
+docker-compose.yml
+scripts/entrypoint.sh
+README.md
+.git
+.gitignore
+*.md

@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  claude:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./workdir:/workdir
+    stdin_open: true
+    tty: true
+    environment:
+      - TERM=xterm-256color
