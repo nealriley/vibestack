@@ -40,6 +40,7 @@ RUN npx -y playwright install chrome
 
 # Copy supervisor configuration and Claude config
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY .bashrc /root/.bashrc
 
 # Create required directories
 RUN mkdir -p /var/log/supervisor /var/run

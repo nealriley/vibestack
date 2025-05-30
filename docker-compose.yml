@@ -48,7 +48,6 @@ services:
     container_name: vibestack-main
     volumes:
       - ./workdir:/workdir
-      - vibestack-home:/root
     ports:
       - "6080:6080"
     stdin_open: true
