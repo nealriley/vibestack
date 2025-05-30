@@ -25,6 +25,7 @@ RUN apt-get update && \
         htop \
         figlet \
         ruby \
+        nginx \
         && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install lolcat via gem
@@ -43,12 +44,14 @@ RUN npm install -g playwright-mcp
 
 RUN npx -y playwright install chrome
 
-# Copy supervisor configuration and Claude config
+# Copy supervisor configuration, nginx config, Claude config, and autostart
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY .bashrc /root/.bashrc
+COPY terminal-autostart.desktop /root/.config/autostart/terminal-autostart.desktop
 
 # Create required directories
-RUN mkdir -p /var/log/supervisor /var/run
+RUN mkdir -p /var/log/supervisor /var/run /root/.config/autostart
 
 RUN claude mcp add --transport sse playwright http://127.0.0.1:7777/sse
 # Set the working directory
@@ -60,8 +63,8 @@ ENV NOVNC_PORT=6080
 ENV VNC_PORT=5900
 ENV RESOLUTION=1280x720
 
-# Expose only the noVNC port
-EXPOSE 6080 7681 7777
+# Expose only the nginx port (80)
+EXPOSE 80
 
 # Run supervisor directly to manage all services
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

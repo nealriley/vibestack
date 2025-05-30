@@ -49,7 +49,7 @@ services:
     volumes:
       - ./workdir:/workdir
     ports:
-      - "6080:6080"
+      - "8080:80"
     stdin_open: true
     tty: true
     environment:
