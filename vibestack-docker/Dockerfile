@@ -23,7 +23,12 @@ RUN apt-get update && \
         vim \
         nano \
         htop \
+        figlet \
+        ruby \
         && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install lolcat via gem
+RUN gem install lolcat
 RUN wget https://github.com/tsl0922/ttyd/releases/download/1.6.3/ttyd.x86_64 -O /usr/bin/ttyd && \
     chmod +x /usr/bin/ttyd
 

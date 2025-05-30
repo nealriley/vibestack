@@ -1,7 +1,23 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
-# Simple startup banner
-echo "Hello World!"
+# VibeStack colorful startup banner
+clear
+echo ""
+
+# Check if lolcat is available, otherwise use basic colors
+if command -v lolcat &> /dev/null; then
+    figlet -f small  "Welcome to" 
+    figlet -f big "Vibestack" | lolcat
+    
+else
+    # Fallback with ANSI colors
+    echo -e "\033[1;35m$(figlet -f big 'Welcome to')\033[0m"
+    echo -e "\033[1;36m$(figlet -f big 'VibeStack')\033[0m"
+    echo ""
+fi
+echo ""
+echo "To get started, try running one of the following commands:"
+echo -e "\033[1;32m'claude'\033[0m to run Claude Code"
 
 # Standard bashrc content
 # If not running interactively, don't do anything
