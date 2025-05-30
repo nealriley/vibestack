@@ -38,12 +38,13 @@ RUN npm install -g playwright-mcp
 
 RUN npx -y playwright install chrome
 
-# Copy supervisor configuration
+# Copy supervisor configuration and Claude config
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Create required directories
 RUN mkdir -p /var/log/supervisor /var/run
 
+RUN claude mcp add --transport sse playwright http://127.0.0.1:7777/sse
 # Set the working directory
 WORKDIR /workdir
 
