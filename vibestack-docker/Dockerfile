@@ -24,6 +24,8 @@ RUN apt-get update && \
         nano \
         htop \
         && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN wget https://github.com/tsl0922/ttyd/releases/download/1.6.3/ttyd.x86_64 -O /usr/bin/ttyd && \
+    chmod +x /usr/bin/ttyd
 
 # Install Node.js (LTS version)
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
@@ -31,6 +33,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
 
 # Install Claude Code
 RUN npm install -g @anthropic-ai/claude-code
+
+RUN npm install -g playwright-mcp
+
+RUN npx -y playwright install chrome
 
 # Copy supervisor configuration
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -48,7 +54,7 @@ ENV VNC_PORT=5900
 ENV RESOLUTION=1280x720
 
 # Expose only the noVNC port
-EXPOSE 6080
+EXPOSE 6080 7681 7777
 
 # Run supervisor directly to manage all services
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
