@@ -49,6 +49,9 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY .bashrc /root/.bashrc
 COPY terminal-autostart.desktop /root/.config/autostart/terminal-autostart.desktop
+COPY xfce-config-autostart.desktop /root/.config/autostart/xfce-config-autostart.desktop
+COPY xfce-minimal-config.sh /usr/local/bin/xfce-minimal-config.sh
+RUN chmod +x /usr/local/bin/xfce-minimal-config.sh
 
 # Create required directories
 RUN mkdir -p /var/log/supervisor /var/run /root/.config/autostart
