@@ -4,14 +4,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install packages for VNC and desktop environment + Claude dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends --fix-missing \
         xvfb \
         x11vnc \
         novnc \
         websockify \
         xfce4 \
         xfce4-terminal \
-        firefox \
         wget \
         curl \
         supervisor \
@@ -26,11 +25,11 @@ RUN apt-get update && \
         figlet \
         ruby \
         nginx \
-        && apt-get clean && rm -rf /var/lib/apt/lists/*
+        whiptail
 
 # Install lolcat via gem
 RUN gem install lolcat
-RUN wget https://github.com/tsl0922/ttyd/releases/download/1.6.3/ttyd.x86_64 -O /usr/bin/ttyd && \
+RUN wget https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64 -O /usr/bin/ttyd && \
     chmod +x /usr/bin/ttyd
 
 # Install Node.js (LTS version)
@@ -48,6 +47,7 @@ RUN npx -y playwright install chrome
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY .bashrc /root/.bashrc
+COPY vibestack-startup.sh /root/vibestack-startup.sh
 COPY terminal-autostart.desktop /root/.config/autostart/terminal-autostart.desktop
 COPY xfce-config-autostart.desktop /root/.config/autostart/xfce-config-autostart.desktop
 COPY xfce-minimal-config.sh /usr/local/bin/xfce-minimal-config.sh
@@ -56,7 +56,7 @@ RUN chmod +x /usr/local/bin/xfce-minimal-config.sh
 # Create required directories
 RUN mkdir -p /var/log/supervisor /var/run /root/.config/autostart
 
-RUN claude mcp add --transport sse playwright http://127.0.0.1:7777/sse
+# MCP server configuration moved to interactive startup menu
 # Set the working directory
 WORKDIR /workdir
 
