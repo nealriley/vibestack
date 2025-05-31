@@ -55,17 +55,17 @@ show_setup_menu() {
     echo ""
     if command -v lolcat &> /dev/null; then
         echo "╔══════════════════════════════════════════════════════════╗" | lolcat
-        echo "║                   🎒 KITTING UP 🎒                      ║" | lolcat  
+        echo "║              ✨ CREATE YOUR VIBE CODING KIT ✨         ║" | lolcat  
         echo "╚══════════════════════════════════════════════════════════╝" | lolcat
     else
         echo -e "\033[1;36m╔══════════════════════════════════════════════════════════╗\033[0m"
-        echo -e "\033[1;36m║                   🎒 KITTING UP 🎒                      ║\033[0m"
+        echo -e "\033[1;36m║              ✨ CREATE YOUR VIBE CODING KIT ✨         ║\033[0m"
         echo -e "\033[1;36m╚══════════════════════════════════════════════════════════╝\033[0m"
     fi
     echo ""
     
     local choice
-    choice=$(whiptail --title "🎒 VIBESTACK KITTING 🎒" --menu "█ Prep your coding session █" 17 65 5 \
+    choice=$(whiptail --title "✨ BUILD YOUR VIBE KIT ✨" --menu "█ Set up your perfect coding environment █" 17 65 5 \
         "1" "🔑 Configure API Keys" \
         "2" "🔧 Add MCP Tools" \
         "3" "🤖 Select LLM Tool" \
@@ -91,7 +91,7 @@ show_setup_menu() {
             ;;
         *)
             echo ""
-            echo -e "\033[1;32m⚡ KITTING COMPLETE ⚡\033[0m"
+            echo -e "\033[1;32m🎉 YOUR VIBE KIT IS READY! 🎉\033[0m"
             echo -e "\033[1;37mYour tools are ready! Type '\033[1;33mclaude\033[1;37m' or '\033[1;33mllm\033[1;37m' to begin\033[0m"
             echo ""
             return 0
@@ -102,10 +102,10 @@ show_setup_menu() {
 # Function to show API keys menu
 show_api_keys_menu() {
     local choice
-    choice=$(whiptail --title "🔑 API KEYS CONFIG 🔑" --menu "█ Add your credentials to the kit █" 15 65 4 \
+    choice=$(whiptail --title "🔑 API KEYS CONFIG 🔑" --menu "█ Connect your AI tools █" 15 65 4 \
         "1" "🧠 Anthropic API Key (Claude)" \
         "2" "🔌 OpenAI API Key" \
-        "3" "← Return to Kitting Menu" \
+        "3" "← Back to Setup" \
         3>&1 1>&2 2>&3)
     
     case $choice in
@@ -127,9 +127,9 @@ show_api_keys_menu() {
 # Function to show MCP servers menu
 show_mcp_menu() {
     local choice
-    choice=$(whiptail --title "🔧 MCP TOOLS KIT 🔧" --menu "█ Add tools to your session █" 15 65 4 \
+    choice=$(whiptail --title "🔧 ENHANCE YOUR TOOLKIT 🔧" --menu "█ Add powerful development tools █" 15 65 4 \
         "1" "🎭 Playwright (Web Automation)" \
-        "2" "← Return to Kitting Menu" \
+        "2" "← Back to Setup" \
         3>&1 1>&2 2>&3)
     
     case $choice in
@@ -151,7 +151,7 @@ show_llm_menu() {
     choice=$(whiptail --title "🤖 LLM TOOL SELECTOR 🤖" --menu "█ Choose your AI coding companion █" 15 65 5 \
         "1" "🧠 Claude Code (Interactive Assistant)" \
         "2" "💬 LLM CLI (Command Line Tool)" \
-        "3" "← Return to Kitting Menu" \
+        "3" "← Back to Setup" \
         3>&1 1>&2 2>&3)
     
     case $choice in
@@ -178,7 +178,7 @@ configure_anthropic_key() {
     if [ $? -eq 0 ] && [ -n "$api_key" ]; then
          echo "export ANTHROPIC_API_KEY=\"$api_key\"" >> /workdir/.keys
         
-        whiptail --title "✅ KEY ADDED ✅" --msgbox "Anthropic API key has been added to your kit!\n\nClaude Code is now ready to use." 8 60
+        whiptail --title "✅ KEY ADDED ✅" --msgbox "Anthropic API key has been connected!\n\nClaude Code is now ready to use." 8 60
     fi
     show_api_keys_menu
 }
@@ -191,16 +191,16 @@ configure_openai_key() {
     if [ $? -eq 0 ] && [ -n "$api_key" ]; then
         echo "export OPENAI_API_KEY=\"$api_key\"" >> /workdir/.keys
         
-        whiptail --title "✅ KEY ADDED ✅" --msgbox "OpenAI API key has been added to your kit!\n\nLLM CLI tool is now ready to use." 8 60
+        whiptail --title "✅ KEY ADDED ✅" --msgbox "OpenAI API key has been connected!\n\nLLM CLI tool is now ready to use." 8 60
     fi
     show_api_keys_menu
 }
 
 # Function to install Playwright MCP
 install_playwright_mcp() {
-    if whiptail --title "🎭 PLAYWRIGHT SETUP 🎭" --yesno "┌─────────────────────────────────────────┐\n│  Adding Web Automation to your kit...  │\n│                                         │\n│  🔧 This will install browser control  │\n│      tools for your coding session     │\n└─────────────────────────────────────────┘\n\n🚀 Add to your toolkit?" 12 65; then
+    if whiptail --title "🎭 PLAYWRIGHT SETUP 🎭" --yesno "┌─────────────────────────────────────────┐\n│  Adding Web Automation to your vibe...  │\n│                                         │\n│  🔧 This will install browser control  │\n│      tools for your coding session     │\n└─────────────────────────────────────────┘\n\n🚀 Add to your vibe?" 12 65; then
         echo ""
-        echo -e "\033[1;33m⚡ ADDING PLAYWRIGHT TO KIT... ⚡\033[0m"
+        echo -e "\033[1;33m⚡ ADDING PLAYWRIGHT TO YOUR VIBE... ⚡\033[0m"
         echo ""
         
         # Install playwright-mcp if not already installed

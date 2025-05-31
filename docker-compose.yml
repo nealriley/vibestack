@@ -5,8 +5,8 @@ services:
       context: ./claude-docker
       dockerfile: Dockerfile
     container_name: vibestack-claude
-    volumes:
-      - ./vibestack-docker:/workdir
+#    volumes:
+#      - ./vibestack-docker:/workdir
     stdin_open: true
     tty: true
     environment:
@@ -43,8 +43,8 @@ services:
       context: ./vibestack-docker
       dockerfile: Dockerfile
     container_name: vibestack-main
-    # volumes:
-    #   - ./vibestack-docker:/workdir
+    volumes:
+      - ./vibestack-docker:/workdir
     ports:
       - "8080:80"
     stdin_open: true

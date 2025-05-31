@@ -3,7 +3,8 @@
     "allow": [
       "Bash(dos2unix:*)",
       "Bash(sed:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(rg:*)"
     ],
     "deny": []
   }
