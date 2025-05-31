@@ -13,12 +13,12 @@ show_intro_screen() {
         figlet -f big "VIBESTACK" | lolcat
         echo ""
         echo "█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█" | lolcat
-        echo "█                                                        █" | lolcat
-        echo "█          ⚡ SYSTEM INITIALIZATION COMPLETE ⚡          █" | lolcat
-        echo "█                                                        █" | lolcat
-        echo "█                 Claude Code Terminal                   █" | lolcat
-        echo "█              Powered by Anthropic AI                   █" | lolcat
-        echo "█                                                        █" | lolcat
+        echo "█                                                     █" | lolcat
+        echo "█          ⚡ SYSTEM INITIALIZATION COMPLETE ⚡       █" | lolcat
+        echo "█                                                     █" | lolcat
+        echo "█                 Claude Code Terminal                █" | lolcat
+        echo "█              Powered by Anthropic AI                █" | lolcat
+        echo "█                                                     █" | lolcat
         echo "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█" | lolcat
     else
         # Fallback with ANSI colors
@@ -55,42 +55,71 @@ show_setup_menu() {
     echo ""
     if command -v lolcat &> /dev/null; then
         echo "╔══════════════════════════════════════════════════════════╗" | lolcat
-        echo "║                      ⚙️  SETUP  ⚙️                       ║" | lolcat  
+        echo "║                   🎒 KITTING UP 🎒                      ║" | lolcat  
         echo "╚══════════════════════════════════════════════════════════╝" | lolcat
     else
         echo -e "\033[1;36m╔══════════════════════════════════════════════════════════╗\033[0m"
-        echo -e "\033[1;36m║                      ⚙️  SETUP  ⚙️                       ║\033[0m"
+        echo -e "\033[1;36m║                   🎒 KITTING UP 🎒                      ║\033[0m"
         echo -e "\033[1;36m╚══════════════════════════════════════════════════════════╝\033[0m"
     fi
     echo ""
     
     local choice
-    choice=$(whiptail --title "⚙️ VIBESTACK SETUP ⚙️" --menu "█ Select Configuration Module █" 15 65 4 \
-        "1" "🔧 MCP Servers Module" \
-        "2" "🤖 AI Provider Configuration" \
-        "3" "🚀 Launch Combat Mode" \
+    choice=$(whiptail --title "🎒 VIBESTACK KITTING 🎒" --menu "█ Prep your coding session █" 17 65 5 \
+        "1" "🔑 Configure API Keys" \
+        "2" "🔧 Add MCP Tools" \
+        "3" "🤖 Select LLM Tool" \
+        "4" "🚀 Start Coding Session" \
         3>&1 1>&2 2>&3)
     
     case $choice in
         1)
-            show_mcp_menu
+            show_api_keys_menu
             ;;
         2)
-            show_llm_menu
+            show_mcp_menu
             ;;
         3)
+            show_llm_menu
+            ;;
+        4)
             echo ""
-            echo -e "\033[1;32m⚡ ENTERING COMBAT MODE... ⚡\033[0m"
-            echo -e "\033[1;37mType '\033[1;33mclaude\033[1;37m' to engage Claude Code AI Assistant\033[0m"
+            echo -e "\033[1;32m⚡ STARTING CODING SESSION... ⚡\033[0m"
+            echo -e "\033[1;37mYour tools are ready! Type '\033[1;33mclaude\033[1;37m' or '\033[1;33mllm\033[1;37m' to begin\033[0m"
             echo ""
             return 0
             ;;
         *)
             echo ""
-            echo -e "\033[1;32m⚡ SETUP COMPLETE ⚡\033[0m"
-            echo -e "\033[1;37mType '\033[1;33mclaude\033[1;37m' to engage Claude Code AI Assistant\033[0m"
+            echo -e "\033[1;32m⚡ KITTING COMPLETE ⚡\033[0m"
+            echo -e "\033[1;37mYour tools are ready! Type '\033[1;33mclaude\033[1;37m' or '\033[1;33mllm\033[1;37m' to begin\033[0m"
             echo ""
             return 0
+            ;;
+    esac
+}
+
+# Function to show API keys menu
+show_api_keys_menu() {
+    local choice
+    choice=$(whiptail --title "🔑 API KEYS CONFIG 🔑" --menu "█ Add your credentials to the kit █" 15 65 4 \
+        "1" "🧠 Anthropic API Key (Claude)" \
+        "2" "🔌 OpenAI API Key" \
+        "3" "← Return to Kitting Menu" \
+        3>&1 1>&2 2>&3)
+    
+    case $choice in
+        1)
+            configure_anthropic_key
+            ;;
+        2)
+            configure_openai_key
+            ;;
+        3)
+            show_setup_menu
+            ;;
+        *)
+            show_setup_menu
             ;;
     esac
 }
@@ -98,9 +127,9 @@ show_setup_menu() {
 # Function to show MCP servers menu
 show_mcp_menu() {
     local choice
-    choice=$(whiptail --title "🔧 MCP SERVERS MODULE 🔧" --menu "█ Select Server Installation █" 15 65 4 \
-        "1" "🎭 Playwright (Web Automation Engine)" \
-        "2" "← Return to Setup Hub" \
+    choice=$(whiptail --title "🔧 MCP TOOLS KIT 🔧" --menu "█ Add tools to your session █" 15 65 4 \
+        "1" "🎭 Playwright (Web Automation)" \
+        "2" "← Return to Kitting Menu" \
         3>&1 1>&2 2>&3)
     
     case $choice in
@@ -119,9 +148,10 @@ show_mcp_menu() {
 # Function to show LLM providers menu
 show_llm_menu() {
     local choice
-    choice=$(whiptail --title "🤖 AI PROVIDER CONFIG 🤖" --menu "█ Select AI Combat Unit █" 15 65 4 \
-        "1" "🧠 Claude (Anthropic Neural Core)" \
-        "2" "← Return to Setup Hub" \
+    choice=$(whiptail --title "🤖 LLM TOOL SELECTOR 🤖" --menu "█ Choose your AI coding companion █" 15 65 5 \
+        "1" "🧠 Claude Code (Interactive Assistant)" \
+        "2" "💬 LLM CLI (Command Line Tool)" \
+        "3" "← Return to Kitting Menu" \
         3>&1 1>&2 2>&3)
     
     case $choice in
@@ -129,6 +159,9 @@ show_llm_menu() {
             setup_claude_provider
             ;;
         2)
+            setup_llm_provider
+            ;;
+        3)
             show_setup_menu
             ;;
         *)
@@ -137,11 +170,37 @@ show_llm_menu() {
     esac
 }
 
+# Function to configure Anthropic API key
+configure_anthropic_key() {
+    local api_key
+    api_key=$(whiptail --title "🧠 ANTHROPIC API KEY 🧠" --inputbox "Enter your Anthropic API key for Claude:" 10 65 3>&1 1>&2 2>&3)
+    
+    if [ $? -eq 0 ] && [ -n "$api_key" ]; then
+         echo "export ANTHROPIC_API_KEY=\"$api_key\"" >> /workdir/.keys
+        
+        whiptail --title "✅ KEY ADDED ✅" --msgbox "Anthropic API key has been added to your kit!\n\nClaude Code is now ready to use." 8 60
+    fi
+    show_api_keys_menu
+}
+
+# Function to configure OpenAI API key
+configure_openai_key() {
+    local api_key
+    api_key=$(whiptail --title "🔌 OPENAI API KEY 🔌" --inputbox "Enter your OpenAI API key:" 10 65 3>&1 1>&2 2>&3)
+    
+    if [ $? -eq 0 ] && [ -n "$api_key" ]; then
+        echo "export OPENAI_API_KEY=\"$api_key\"" >> /workdir/.keys
+        
+        whiptail --title "✅ KEY ADDED ✅" --msgbox "OpenAI API key has been added to your kit!\n\nLLM CLI tool is now ready to use." 8 60
+    fi
+    show_api_keys_menu
+}
+
 # Function to install Playwright MCP
 install_playwright_mcp() {
-    if whiptail --title "🎭 PLAYWRIGHT INSTALLATION 🎭" --yesno "┌─────────────────────────────────────────┐\n│  Installing Web Automation Engine...   │\n│                                         │\n│  ⚠️  This will deploy combat-grade     │\n│      browser automation systems        │\n└─────────────────────────────────────────┘\n\n💀 Continue with installation?" 12 65; then
+    if whiptail --title "🎭 PLAYWRIGHT SETUP 🎭" --yesno "┌─────────────────────────────────────────┐\n│  Adding Web Automation to your kit...  │\n│                                         │\n│  🔧 This will install browser control  │\n│      tools for your coding session     │\n└─────────────────────────────────────────┘\n\n🚀 Add to your toolkit?" 12 65; then
         echo ""
-        echo -e "\033[1;33m⚡ DEPLOYING PLAYWRIGHT ENGINE... ⚡\033[0m"
+        echo -e "\033[1;33m⚡ ADDING PLAYWRIGHT TO KIT... ⚡\033[0m"
         echo ""
         
         # Install playwright-mcp if not already installed
@@ -149,13 +208,12 @@ install_playwright_mcp() {
             npm install -g playwright-mcp
         fi
         
-        # Add the MCP connection to Claude (this was moved from Dockerfile)
         claude mcp add --transport sse playwright http://127.0.0.1:7777/sse
         
         if [ $? -eq 0 ]; then
-            whiptail --title "✅ MISSION SUCCESS ✅" --msgbox "┌─────────────────────────────────────────┐\n│  🎭 PLAYWRIGHT ENGINE DEPLOYED!       │\n│                                         │\n│  ✓ Web automation systems online       │\n│  ✓ Combat-ready browser control        │\n│  ✓ AI integration established          │\n└─────────────────────────────────────────┘" 10 65
+            whiptail --title "✅ TOOL ADDED ✅" --msgbox "┌─────────────────────────────────────────┐\n│  🎭 PLAYWRIGHT READY!                  │\n│                                         │\n│  ✓ Web automation tools loaded         │\n│  ✓ Browser control available           │\n│  ✓ Ready for your coding session       │\n└─────────────────────────────────────────┘" 10 65
         else
-            whiptail --title "❌ MISSION FAILED ❌" --msgbox "┌─────────────────────────────────────────┐\n│  ⚠️  ENGINE DEPLOYMENT FAILED!        │\n│                                         │\n│  💥 Check system logs for errors       │\n│  🔧 Retry installation if needed       │\n└─────────────────────────────────────────┘" 10 65
+            whiptail --title "❌ SETUP FAILED ❌" --msgbox "┌─────────────────────────────────────────┐\n│  ⚠️  PLAYWRIGHT SETUP FAILED!         │\n│                                         │\n│  💥 Check system logs for errors       │\n│  🔧 Try adding the tool again          │\n└─────────────────────────────────────────┘" 10 65
         fi
     fi
     show_mcp_menu
@@ -165,16 +223,35 @@ install_playwright_mcp() {
 setup_claude_provider() {
     # Check if Claude is available
     if command -v claude &> /dev/null; then
-        if whiptail --title "🧠 CLAUDE NEURAL CORE 🧠" --yesno "┌─────────────────────────────────────────┐\n│  🤖 AI COMBAT UNIT DETECTED!          │\n│                                         │\n│  ✓ Claude Code systems operational     │\n│  ✓ Anthropic neural networks active    │\n│  ✓ Ready for immediate deployment      │\n└─────────────────────────────────────────┘\n\n🚀 Deploy Claude Code now?" 12 65; then
+        if whiptail --title "🧠 CLAUDE CODE READY 🧠" --yesno "┌─────────────────────────────────────────┐\n│  🤖 CLAUDE CODE ASSISTANT DETECTED!   │\n│                                         │\n│  ✓ Interactive AI assistant ready      │\n│  ✓ Code generation & assistance        │\n│  ✓ Perfect for your coding session     │\n└─────────────────────────────────────────┘\n\n🚀 Start Claude Code now?" 12 65; then
             clear
             echo ""
-            echo -e "\033[1;32m⚡ DEPLOYING CLAUDE NEURAL CORE... ⚡\033[0m"
-            echo -e "\033[1;37mAI systems coming online...\033[0m"
+            echo -e "\033[1;32m⚡ STARTING CLAUDE CODE... ⚡\033[0m"
+            echo -e "\033[1;37mYour AI coding assistant is launching...\033[0m"
             echo ""
             exec claude
         fi
     else
-        whiptail --title "❌ NEURAL CORE ERROR ❌" --msgbox "┌─────────────────────────────────────────┐\n│  ⚠️  CLAUDE CORE NOT DETECTED!        │\n│                                         │\n│  💥 AI systems not properly installed  │\n│  🔧 Check installation and retry       │\n└─────────────────────────────────────────┘" 10 65
+        whiptail --title "❌ SETUP ISSUE ❌" --msgbox "┌─────────────────────────────────────────┐\n│  ⚠️  CLAUDE CODE NOT FOUND!           │\n│                                         │\n│  💥 Tool not properly installed        │\n│  🔧 Check your setup and try again     │\n└─────────────────────────────────────────┘" 10 65
+    fi
+    show_llm_menu
+}
+
+# Function to setup LLM CLI provider
+setup_llm_provider() {
+    # Check if LLM CLI is available
+    if command -v llm &> /dev/null; then
+        if whiptail --title "💬 LLM CLI READY 💬" --yesno "┌─────────────────────────────────────────┐\n│  🛠️  LLM COMMAND LINE TOOL DETECTED!   │\n│                                         │\n│  ✓ Fast command-line AI interactions   │\n│  ✓ Perfect for quick queries & tasks   │\n│  ✓ Ready for your coding workflow      │\n└─────────────────────────────────────────┘\n\n🚀 Start using LLM CLI now?" 12 65; then
+            clear
+            echo ""
+            echo -e "\033[1;32m⚡ LLM CLI READY ⚡\033[0m"
+            echo -e "\033[1;37mType '\033[1;33mllm\033[1;37m' followed by your question to get started\033[0m"
+            echo -e "\033[1;37mExample: \033[1;33mllm 'explain this code'\033[1;37m\033[0m"
+            echo ""
+            return 0
+        fi
+    else
+        whiptail --title "❌ SETUP ISSUE ❌" --msgbox "┌─────────────────────────────────────────┐\n│  ⚠️  LLM CLI NOT FOUND!               │\n│                                         │\n│  💥 Tool not properly installed        │\n│  🔧 Check your setup and try again     │\n└─────────────────────────────────────────┘" 10 65
     fi
     show_llm_menu
 }

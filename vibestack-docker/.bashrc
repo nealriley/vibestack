@@ -1,6 +1,7 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
 # VibeStack Interactive Startup Menu
+
 bash /root/vibestack-kickstart.sh
 
 # Standard bashrc content
@@ -71,3 +72,5 @@ alias l='ls -CF'
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+
+# API KEY SECTIONS

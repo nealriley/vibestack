@@ -66,3 +66,6 @@ To remove volumes:
 ```bash
 docker-compose down -v
 ```
+
+
+http://localhost:8080/?autoconnect=true&resize=scale
