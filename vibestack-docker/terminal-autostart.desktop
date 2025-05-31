@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
 Name=Terminal Autostart
-Comment=Launch maximized terminal on XFCE startup
-Exec=xfce4-terminal --maximize
+Comment=Launch maximized terminal on WindowMaker startup
+Exec=xterm -maximized
 Icon=utilities-terminal
 Hidden=false
 NoDisplay=false

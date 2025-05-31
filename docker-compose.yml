@@ -1,20 +1,19 @@
 services:
   # # Claude Code container with jq, git, and other dev tools
-  # claude:
-  #   build:
-  #     context: ./claude-docker
-  #     dockerfile: Dockerfile
-  #   container_name: vibestack-claude
-  #   volumes:
-  #     - ./workdir:/workdir/share
-  #     - claude-home:/root
-  #   stdin_open: true
-  #   tty: true
-  #   environment:
-  #     - TERM=xterm-256color
-  #   networks:
-  #     - vibestack-net
-  #   restart: unless-stopped
+  claude:
+    build:
+      context: ./claude-docker
+      dockerfile: Dockerfile
+    container_name: vibestack-claude
+    volumes:
+      - ./vibestack-docker:/workdir
+    stdin_open: true
+    tty: true
+    environment:
+      - TERM=xterm-256color
+    networks:
+      - vibestack-net
+    restart: unless-stopped
 
   # # NoVNC container for remote desktop access
   # novnc:
@@ -44,8 +43,8 @@ services:
       context: ./vibestack-docker
       dockerfile: Dockerfile
     container_name: vibestack-main
-    volumes:
-      - ./vibestack-docker:/workdir
+    # volumes:
+    #   - ./vibestack-docker:/workdir
     ports:
       - "8080:80"
     stdin_open: true

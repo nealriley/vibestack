@@ -1,7 +1,7 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
 # VibeStack Interactive Startup Menu
-bash /root/vibestack-startup.sh
+bash /root/vibestack-kickstart.sh
 
 # Standard bashrc content
 # If not running interactively, don't do anything
