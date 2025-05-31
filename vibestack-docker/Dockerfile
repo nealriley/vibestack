@@ -47,7 +47,6 @@ RUN npx -y playwright install chrome
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY .bashrc /root/.bashrc
-COPY vibestack-startup.sh /root/vibestack-startup.sh
 COPY terminal-autostart.desktop /root/.config/autostart/terminal-autostart.desktop
 COPY vibestack-kickstart.sh /root/vibestack-kickstart.sh
 # Create required directories

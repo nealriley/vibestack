@@ -37,13 +37,13 @@ show_intro_screen() {
     echo ""
     echo -e "\033[1;37m                    STATUS: \033[1;32mREADY\033[0m"
     echo ""
-    echo -e "\033[1;37m              [ PRESS \033[1;33mSPACE\033[1;37m TO ENTER SETUP ]\033[0m"
+    echo -e "\033[1;37m              [ PRESS \033[1;33mS\033[1;37m TO ENTER SETUP ]\033[0m"
     echo ""
     
-    # Wait for spacebar press
+    # Wait for 's' key press
     while true; do
         read -rsn1 key
-        if [[ "$key" == " " ]]; then
+        if [[ "$key" == "s" || "$key" == "S" ]]; then
             break
         fi
     done

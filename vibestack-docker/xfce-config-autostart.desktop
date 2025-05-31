@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=XFCE Minimal Config
-Comment=Apply minimal dark theme configuration
-Exec=/usr/local/bin/xfce-minimal-config.sh
-Icon=preferences-desktop-theme
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
