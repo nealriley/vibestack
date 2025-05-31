@@ -43,6 +43,10 @@ RUN npm install -g playwright-mcp
 
 RUN npx -y playwright install chrome
 
+# RUN curl -LsSf https://astral.sh/uv/install.sh | bash - 
+
+RUN pip install llm
+
 # Copy supervisor configuration, nginx config, Claude config, and autostart
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
