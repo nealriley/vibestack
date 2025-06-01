@@ -45,16 +45,14 @@ RUN npx -y playwright install chrome
 
 # RUN curl -LsSf https://astral.sh/uv/install.sh | bash - 
 
-RUN pip install llm
+RUN pip install llm textual
 
 # Copy supervisor configuration, nginx config, Claude config, and autostart
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY .bashrc /root/.bashrc
-COPY terminal-autostart.desktop /root/.config/autostart/terminal-autostart.desktop
-COPY vibestack-kickstart.sh /root/vibestack-kickstart.sh
+COPY vibestack_ui.py /root/vibestack_ui.py
 # Create required directories
-RUN mkdir -p /var/log/supervisor /var/run /root/.config/autostart
+RUN mkdir -p /var/log/supervisor /var/run
 
 # MCP server configuration moved to interactive startup menu
 # Set the working directory
